@@ -19,10 +19,15 @@ CREATE TABLE products (
     description TEXT,
     base_price DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     is_active BOOL NOT NULL DEFAULT TRUE,
-    category_id INT NOT NULL,
     brand_id INT NOT NULL,
-    FOREIGN KEY (category_id) REFERENCES categories(id),
     FOREIGN KEY (brand_id) REFERENCES brands(id)
+);
+
+CREATE TABLE product_categories (
+	category_id INT NOT NULL,
+    product_id INT NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE product_variants (
@@ -40,7 +45,7 @@ CREATE TABLE attributes (
 
 CREATE TABLE attribute_values (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    value VARCHAR(10) NOT NULL,
+    attribute_value VARCHAR(10) NOT NULL,
     attribute_id INT NOT NULL,
     FOREIGN KEY (attribute_id) REFERENCES attributes(id)
 );
@@ -99,7 +104,7 @@ CREATE TABLE order_details (
     order_id INT NOT NULL,
     product_variant_id INT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_variant_id) REFERENCES product_variants(id) ON DELETE CASCADE
+    FOREIGN KEY (product_variant_id) REFERENCES product_variants(id)
 );
 
 CREATE TABLE payment_types (
@@ -111,6 +116,7 @@ CREATE TABLE payments (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     amount DECIMAL(10,2) NOT NULL,
     status ENUM('PENDING', 'COMPLETED', 'FAILED', 'REFOUNDED'),
+    transaction_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     details JSON,
     order_id INT NOT NULL,
     payment_type_id INT NOT NULL,

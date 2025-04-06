@@ -4,7 +4,9 @@ USE STUDI_sport_shop;
 INSERT INTO categories (name) VALUES 
 ('Chaussure'), 
 ('Vêtement'), 
-('Accessoire');
+('Accessoire'),
+('Escalade'),
+('Randonée');
 
 -- Insérer des marques
 INSERT INTO brands (name) VALUES 
@@ -14,12 +16,23 @@ INSERT INTO brands (name) VALUES
 ('K2');
 
 -- Insérer des produits
-INSERT INTO products (name, description, base_price, category_id, brand_id) VALUES 
-('Gripamax', 'La grimpe précise', 250.00, 1, 1),
-('Climboss', 'Permet de courir sur les murs', 160.00, 1, 2),
-('Pullo', 'Comfort et chaleur', 60.00, 2, 3),
-('Gourdass', 'Pratique pour boire', 25.50, 3, 4),
-('Hellmet', 'Protège ta tête !', 65.00, 3, 4);
+INSERT INTO products (name, description, base_price, brand_id) VALUES 
+('Gripamax', 'La grimpe précise', 250.00, 1),
+('Climboss', 'Permet de courir sur les murs', 160.00, 2),
+('Pullo', 'Comfort et chaleur', 60.00, 3),
+('Gourdass', 'Pratique pour boire', 25.50, 4),
+('Hellmet', 'Protège ta tête !', 65.00, 4);
+
+INSERT INTO product_categories (category_id, product_id) VALUES
+(1, 1),
+(4, 1),
+(1, 2),
+(4, 2),
+(2, 3),
+(3, 4),
+(5, 4),
+(3, 5),
+(4, 5);
 
 -- Insérer des variantes de produits
 INSERT INTO product_variants (product_id, quantity, specific_price) VALUES 
@@ -42,7 +55,7 @@ INSERT INTO attributes (name) VALUES
 ('Couleur');
 
 -- Insérer des attributs
-INSERT INTO attribute_values (value, attribute_id) VALUES 
+INSERT INTO attribute_values (attribute_value, attribute_id) VALUES 
 ('42', 1), 
 ('43', 1),
 ('45', 1),
@@ -103,5 +116,5 @@ INSERT INTO payment_types (name) VALUES
 ('BANK_TRANSFER');
 
 -- Insérer des paiements
-INSERT INTO payments (amount, status, details, order_id, payment_type_id) VALUES 
-(310.00, 'COMPLETED', '{"paypal_id": "PAYPAL-789456"}', 2, 2);
+INSERT INTO payments (amount, status, transaction_date, details, order_id, payment_type_id) VALUES 
+(310.00, 'COMPLETED', NOW(), '{"paypal_id": "PAYPAL-789456"}', 2, 2);
