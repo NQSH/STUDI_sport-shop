@@ -48,7 +48,7 @@ INSERT INTO product_variants (product_id, quantity, specific_price) VALUES
 (5, 12, NULL); -- ID 10
 
 -- Insérer des types d'attribut
-INSERT INTO attributes (name) VALUES 
+INSERT INTO attribute_types (name) VALUES 
 ('Pointure'), 
 ('Taille'),
 ('Capacité'),
@@ -68,7 +68,7 @@ INSERT INTO attribute_values (attribute_value, attribute_id) VALUES
 
 -- Insèrer des associations variante / attribut
 
-INSERT INTO variant_attributes (product_variant_id, attribute_value_id) VALUES
+INSERT INTO product_variant_attributes (product_variant_id, attribute_value_id) VALUES
 (1, 1),
 (2, 2),
 (3, 2),

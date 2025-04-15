@@ -38,19 +38,31 @@ CREATE TABLE product_variants (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
-CREATE TABLE attributes (
+CREATE TABLE attribute_types (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE category_attribute_types (
+	category_id INT NOT NULL,
+    attribute_type_id INT NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES attribute_types(id)
+);
+
+CREATE TABLE product_attribute_types (
+	product_id INT NOT NULL,
+    attribute_type_id INT NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES attribute_types(id)
 );
 
 CREATE TABLE attribute_values (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     attribute_value VARCHAR(10) NOT NULL,
     attribute_id INT NOT NULL,
-    FOREIGN KEY (attribute_id) REFERENCES attributes(id)
+    FOREIGN KEY (attribute_id) REFERENCES attribute_types(id)
 );
 
-CREATE TABLE variant_attributes (
+CREATE TABLE product_variant_attributes (
 	product_variant_id INT NOT NULL,
     attribute_value_id INT NOT NULL,
     PRIMARY KEY(product_variant_id, attribute_value_id),
